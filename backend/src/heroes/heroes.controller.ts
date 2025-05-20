@@ -1,4 +1,12 @@
-import { Body, Param, Controller, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Param,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { HeroesService } from './heroes.service';
 import { HeroesCreateDto, HeroesEditDto } from './dto/heroes.dto';
 
@@ -22,5 +30,14 @@ export class HeroesController {
   async updateHero(@Body() bodyDto: HeroesEditDto, @Param('id') id: string) {
     const editedHero = await this.heroesService.editOne(bodyDto, id);
     return { message: 'Hero updated', hero: editedHero };
+  }
+
+  @Delete(':id')
+  async deleteHero(@Param('id') id: string) {
+    const deletedHero = await this.heroesService.deleteOne(id);
+    return {
+      message: deletedHero == 200 ? 'Hero deleted' : 'Hero not found',
+      deletedStatus: deletedHero,
+    };
   }
 }

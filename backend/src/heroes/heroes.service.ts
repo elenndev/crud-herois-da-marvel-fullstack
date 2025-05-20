@@ -27,4 +27,13 @@ export class HeroesService {
     );
     return editedHeroDocument as Hero;
   }
+
+  async deleteOne(id: string): Promise<number> {
+    const deleteHero = await this.heroModel.findOneAndDelete({ _id: id });
+    if (deleteHero) {
+      return 200;
+    } else {
+      return 400;
+    }
+  }
 }
