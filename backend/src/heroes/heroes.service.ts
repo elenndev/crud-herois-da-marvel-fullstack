@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Hero } from './schema/heroes.model';
+import { Hero, NewHero } from './schema/heroes.model';
 
 @Injectable()
 export class HeroesService {
@@ -10,5 +10,11 @@ export class HeroesService {
 
   async findAll(): Promise<Hero[]> {
     return this.heroModel.find().exec();
+  }
+
+  async insertOne(newHero: NewHero): Promise<string> {
+    const newHeroDocument = new this.heroModel(newHero);
+    const result = await newHeroDocument.save();
+    return result._id.toString();
   }
 }

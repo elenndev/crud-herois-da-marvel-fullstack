@@ -6,7 +6,7 @@ export const HeroSchema = new mongoose.Schema({
     required: true,
   },
   abilities: {
-    type: String,
+    type: [String],
     required: true,
   },
   origins: {
@@ -17,4 +17,9 @@ export const HeroSchema = new mongoose.Schema({
 
 export interface Hero extends mongoose.Document {
   _id: string;
+}
+export interface NewHero {
+  name: string;
+  abilities: string[];
+  origins: string;
 }
