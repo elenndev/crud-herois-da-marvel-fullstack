@@ -12,7 +12,6 @@ export class HeroesCreateDto {
 }
 
 export class HeroesEditDto {
-  readonly _id: string;
   readonly name: string;
   readonly abilities: string[];
   readonly origins: string;

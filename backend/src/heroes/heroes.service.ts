@@ -19,8 +19,7 @@ export class HeroesService {
     return result._id.toString();
   }
 
-  async editOne(hero: HeroesEditDto): Promise<Hero> {
-    const id = hero._id;
+  async editOne(hero: HeroesEditDto, id: string): Promise<Hero> {
     const editedHeroDocument = await this.heroModel.findOneAndUpdate(
       { _id: id },
       hero,
