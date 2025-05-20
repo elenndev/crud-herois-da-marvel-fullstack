@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { HeroesService } from './heroes.service';
-import { HeroesCreateDto } from './dto/heroes.dto';
+import { HeroesCreateDto, HeroesEditDto } from './dto/heroes.dto';
 
 @Controller('heroes')
 export class HeroesController {
@@ -15,6 +15,12 @@ export class HeroesController {
   @Post()
   async insertHero(@Body() bodyDto: HeroesCreateDto) {
     const newHeroId = await this.heroesService.insertOne(bodyDto);
-    return { message: 'Heroe successfully', _id: newHeroId };
+    return { message: 'Hero created successfully', _id: newHeroId };
+  }
+
+  @Put()
+  async updateHero(@Body() bodyDto: HeroesEditDto) {
+    const editedHero = await this.heroesService.editOne(bodyDto);
+    return { message: 'Hero updated', hero: editedHero };
   }
 }

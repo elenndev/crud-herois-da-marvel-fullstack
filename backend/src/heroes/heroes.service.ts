@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Hero, NewHero } from './schema/heroes.model';
+import { HeroesEditDto } from './dto/heroes.dto';
 
 @Injectable()
 export class HeroesService {
@@ -16,5 +17,15 @@ export class HeroesService {
     const newHeroDocument = new this.heroModel(newHero);
     const result = await newHeroDocument.save();
     return result._id.toString();
+  }
+
+  async editOne(hero: HeroesEditDto): Promise<Hero> {
+    const id = hero._id;
+    const editedHeroDocument = await this.heroModel.findOneAndUpdate(
+      { _id: id },
+      hero,
+      { new: true },
+    );
+    return editedHeroDocument as Hero;
   }
 }
