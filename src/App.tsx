@@ -1,4 +1,4 @@
-
+import './tailwind.css';
 import './App.css'
 function App() {
 
@@ -6,8 +6,9 @@ function App() {
   return (
     <>
       <main>
-        <span>Bem vindo ao Desafio Fullstack </span>
-          </main>
+        <h1 className='text-center'>MARVEL</h1>
+        <p>normla text</p>
+      </main>
     </>
   )
 }
