@@ -5,6 +5,7 @@ import { getHeroes } from './utils/fetchAPI';
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch  } from './store/storeHooks';
 import { setHeroes } from './store/heroesStore';
+import { AddCharacter } from './components/AddCharater/AddCharacter';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -19,13 +20,13 @@ function App() {
     }
   },[data, dispatch])
 
-  if(isLoading){
-    return <p>Is loading</p>
-  }
+  // if(isLoading){
+  //   return <p>Is loading</p>
+  // }
 
-  if(error){
-    return <p>Is error</p>
-  }
+  // if(error){
+  //   return <p>Is error</p>
+  // }
 
 
   return (
@@ -36,6 +37,7 @@ function App() {
         {heroesList.length > 0 && (<>
           {heroesList.map((dt, i) => (<p key={i}>{dt.name}</p>))}
         </>)}
+        <AddCharacter/>
       </main>
     </>
   )
