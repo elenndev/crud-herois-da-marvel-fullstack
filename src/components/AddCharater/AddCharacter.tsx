@@ -2,6 +2,10 @@ import React, { useState } from "react"
 import { SearchForm } from "./SearchForm"
 import { AddAbility } from "./AddAbility";
 import { TypeHero } from "../../types/heroes";
+import { addNewHero } from "../../utils/fetchAPI";
+import { useAppDispatch } from "../../store/storeHooks";
+import { addHero } from "../../store/heroesStore";
+import { v4 as uuidv4 } from "uuid";
 
 export interface selectedHero {
   marvelId: string;
@@ -9,21 +13,21 @@ export interface selectedHero {
   thumbnail: string;
 }
 
-// interface addCharacterProps {
-//   saveHero: (hero: TypeHero) => void;
-// }
-export const AddCharacter = () => {
+interface addCharacterProps {
+  closeAddCharacter: () => void;
+}
+export const AddCharacter = ({closeAddCharacter} : addCharacterProps) => {
   const [character, setCharacter] = useState<selectedHero|null>(null)
   const [origin, setOrigin] = useState("")
   const [abilities, setAbilities] = useState<string[]>([])
+  const dispatch = useAppDispatch()
 
   function saveAbility(newAbility: string){
-    const updateAbilities = abilities
-    updateAbilities.push(newAbility)
-    setAbilities(updateAbilities)
+    const updatedAbilities = [...abilities, newAbility];
+    setAbilities(updatedAbilities);
   }
 
-  function handleSubmit(e: React.FormEvent){
+  async function handleSubmit(e: React.FormEvent){
     e.preventDefault()
     if(!character){ return }
 
@@ -35,7 +39,17 @@ export const AddCharacter = () => {
       thumbnail: character?.thumbnail
     }
     
-    console.log('newHero', newHero)
+    try{
+      const res = await addNewHero(newHero)
+      if(typeof res == 'string'){
+        dispatch(addHero({ ...newHero, _id: res }))
+        closeAddCharacter()
+      } else{
+        throw new Error('Erro na requisição para registrar o herói')
+      }
+    }catch(error){
+      console.log(error)
+    }
   }
 
   function changeCharacter(){
@@ -66,16 +80,18 @@ export const AddCharacter = () => {
           <div className='infos'>
             <span>
               <p>Adicione a história de origem</p>
-              <input type='text'
+              <textarea 
               value={origin}
-              onChange={(e)=>setOrigin(e.target.value)}/>
+              onChange={(e)=>setOrigin(e.target.value)}
+              required={true}
+              minLength={15}/>
             </span>
             <span>
               <p>Habilidades</p>
               <p>Descreva as habilidades <strong>principais</strong> do herói</p>
               {abilities.length > 0 && (
                 <ul className="list-none">
-                  {abilities.map((ability,index) => <p key={index}>{ability}</p>)}
+                  {abilities.map(ability => <p key={uuidv4()}>{ability}</p>)}
                 </ul>
               )}
               {abilities.length < 5 ? (

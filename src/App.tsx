@@ -2,7 +2,7 @@ import './tailwind.css';
 import './App.css';
 import useSWR from 'swr';
 import { getHeroes } from './utils/fetchAPI';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch  } from './store/storeHooks';
 import { setHeroes } from './store/heroesStore';
 import { AddCharacter } from './components/AddCharater/AddCharacter';
@@ -13,6 +13,7 @@ function App() {
   const { data, error, isLoading } = useSWR(`${backendUrl}/heroes`, getHeroes)
   const heroesList = useAppSelector((state)=> state.value)
   const dispatch = useAppDispatch()
+  const [openAddHero, setOpenAddHero] = useState(false)
 
   useEffect(()=>{
     if(data){
@@ -34,10 +35,26 @@ function App() {
       <main>
         <h1 className='text-center'>MARVEL</h1>
         <p>normal text</p>
-        {heroesList.length > 0 && (<>
-          {heroesList.map((dt, i) => (<p key={i}>{dt.name}</p>))}
-        </>)}
-        <AddCharacter/>
+        {openAddHero ? (<AddCharacter closeAddCharacter={()=>setOpenAddHero(false)}/>) 
+        : 
+        (
+          <>
+          {heroesList.length > 0 ? (<>
+            {heroesList.map((dt, i) => (<p key={i}>{dt.name}</p>))}
+            <button type='button'
+            onClick={()=>setOpenAddHero(true)}>Adicionar herói</button>
+          </>)
+          :
+          (
+            <span>
+              <p>Lista vazia, comece adicionando um herói</p>
+              <button type='button'
+              onClick={()=>setOpenAddHero(true)}>
+                Adicionar herói
+              </button>
+            </span>
+          )}
+          </>)}
       </main>
     </>
   )

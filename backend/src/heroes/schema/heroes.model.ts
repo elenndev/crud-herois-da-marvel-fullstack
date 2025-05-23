@@ -13,6 +13,14 @@ export const HeroSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  thumbnail: {
+    type: String,
+    required: true,
+  },
+  marvelId: {
+    type: String,
+    required: true,
+  },
 });
 
 export interface Hero extends mongoose.Document {
