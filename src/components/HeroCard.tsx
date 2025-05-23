@@ -13,7 +13,6 @@ export const HeroCard = ({ hero, openCard } : heroCardProps) => {
     backgroundPosition: 'center',
     height: '300px',
   }
-  console.log(hero.thumbnail)
 
   return(
     <div

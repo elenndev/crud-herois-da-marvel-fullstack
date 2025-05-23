@@ -5,9 +5,10 @@ import { getHeroes } from './utils/fetchAPI';
 import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch  } from './store/storeHooks';
 import { setHeroes } from './store/heroesStore';
-import { AddCharacter } from './components/AddCharater/AddCharacter';
+import { HeroForm } from './components/AddCharater/HeroForm';
 import { Loader } from './components/Loader';
 import { HeroList } from './components/HeroList';
+import { TypeHero } from './types/heroes';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -16,6 +17,7 @@ function App() {
   const heroesList = useAppSelector((state)=> state.value)
   const dispatch = useAppDispatch()
   const [openAddHero, setOpenAddHero] = useState(false)
+  const [editHero, setEditHero] = useState<undefined | TypeHero>(undefined)
 
   useEffect(()=>{
     if(data){
@@ -32,6 +34,16 @@ function App() {
     )
   }
 
+  function openEditHero(hero: TypeHero){
+    setEditHero(hero)
+    setOpenAddHero(true)
+  }
+
+  function closeAddOrEditHero(){
+    setEditHero(undefined)
+    setOpenAddHero(false)
+  }
+
   // if(error){
   //   return <p>Is error</p>
   // }
@@ -44,12 +56,16 @@ function App() {
         <h1 
         className='text-center mt-10'>MARVEL</h1>
         <section className='content w-full h-full'>
-          {openAddHero ? (<AddCharacter closeAddCharacter={()=>setOpenAddHero(false)}/>) 
+          {openAddHero ? (<HeroForm 
+                          hero={editHero} 
+                          close={closeAddOrEditHero}/>) 
           : 
           (
             <>
             {heroesList.length > 0 ? (<>
-              <HeroList list={heroesList}/>
+              <HeroList 
+              openEditHero={openEditHero}
+              list={heroesList}/>
               <button type='button'
               onClick={()=>setOpenAddHero(true)}>Adicionar herói</button>
             </>)

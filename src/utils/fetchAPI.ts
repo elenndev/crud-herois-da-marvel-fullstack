@@ -17,3 +17,15 @@ export const addNewHero = async (hero: TypeNewHero) => {
   })
   return data._id
 }
+
+export const updateHero = async (hero: TypeHero) => {
+  const { data } = await axios.put(`${backendUrl}/heroes/${hero._id}`,{
+    _id: hero._id,
+    marvelId: hero.marvelId,
+    name: hero.name,
+    abilities: hero.abilities,
+    origins: hero.origins,
+    thumbnail: hero.thumbnail
+  })
+  return data
+}

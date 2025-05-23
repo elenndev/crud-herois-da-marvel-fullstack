@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import md5 from "md5";
-import { selectedHero } from "./AddCharacter";
+import { selectedHero } from "./HeroForm";
 import { v4 as uuidv4 } from "uuid";
 
 const publicKey = import.meta.env.VITE_PUBLIC_KEY

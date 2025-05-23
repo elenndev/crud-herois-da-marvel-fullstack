@@ -2,24 +2,26 @@ import React, { useState } from "react"
 import { SearchForm } from "./SearchForm"
 import { AddAbility } from "./AddAbility";
 import { TypeHero } from "../../types/heroes";
-import { addNewHero } from "../../utils/fetchAPI";
+import { addNewHero, updateHero } from "../../utils/fetchAPI";
 import { useAppDispatch } from "../../store/storeHooks";
-import { addHero } from "../../store/heroesStore";
+import { addHero, updateExistingHero } from "../../store/heroesStore";
 import { v4 as uuidv4 } from "uuid";
 
 export interface selectedHero {
   marvelId: string;
   name: string;
   thumbnail: string;
+  _id?: string;
 }
 
-interface addCharacterProps {
-  closeAddCharacter: () => void;
+interface heroFormProps {
+  hero?: TypeHero;
+  close: () => void;
 }
-export const AddCharacter = ({closeAddCharacter} : addCharacterProps) => {
-  const [character, setCharacter] = useState<selectedHero|null>(null)
-  const [origin, setOrigin] = useState("")
-  const [abilities, setAbilities] = useState<string[]>([])
+export const HeroForm = ({hero, close} : heroFormProps) => {
+  const [character, setCharacter] = useState<selectedHero|null>(hero ?? null)
+  const [origin, setOrigin] = useState(hero?.origins ?? "")
+  const [abilities, setAbilities] = useState<string[]>(hero?.abilities ?? [])
   const dispatch = useAppDispatch()
 
   function saveAbility(newAbility: string){
@@ -30,6 +32,7 @@ export const AddCharacter = ({closeAddCharacter} : addCharacterProps) => {
   async function handleSubmit(e: React.FormEvent){
     e.preventDefault()
     if(!character){ return }
+    const isEditing = character._id ? true : false
 
     const newHero: Omit<TypeHero, '_id'> = {
       abilities,
@@ -40,12 +43,30 @@ export const AddCharacter = ({closeAddCharacter} : addCharacterProps) => {
     }
     
     try{
-      const res = await addNewHero(newHero)
-      if(typeof res == 'string'){
-        dispatch(addHero({ ...newHero, _id: res }))
-        closeAddCharacter()
-      } else{
-        throw new Error('Erro na requisição para registrar o herói')
+      if(isEditing){
+        const updatingHero: TypeHero = {
+          _id: character._id!,
+          abilities,
+          marvelId: character.marvelId,
+          name: character.name,
+          origins: origin,
+          thumbnail: character.thumbnail
+        }
+        const res = await updateHero(updatingHero);
+        if(res.hero){
+          dispatch(updateExistingHero(updatingHero))
+          close()
+        }else{
+          throw new Error('Erro na requisição para atualizar o herói')
+        }
+      }else{
+        const res = await addNewHero(newHero)
+        if(typeof res == 'string'){
+          dispatch(addHero({ ...newHero, _id: res }))
+          close()
+        } else{
+          throw new Error('Erro na requisição para registrar o herói')
+        }
       }
     }catch(error){
       console.log(error)
@@ -61,16 +82,24 @@ export const AddCharacter = ({closeAddCharacter} : addCharacterProps) => {
   return (
     <form className='flex flex-col bg-white text-black'
     onSubmit={(e)=>handleSubmit(e)}>
-      <h2 className='text-center'>{character ? `Adicionando: ${character.name}` : 'Adicionar herói'}</h2>
-      {character ? (
+      <button type="button"
+      onClick={()=>close()}
+      className="absolute top-0.5 right-0.5 rounded-[2rem] bg-[#000000a8]
+      w-fit px-5 py-1 cursor-pointer">
+        Fechar
+      </button>
+      <h2 className='text-center'>{character ? character._id ? `Editando: ${character.name}` :`Adicionando: ${character.name}` : 'Adicionar herói'}</h2>
+      {character ? (<>
+        {!character._id && (
         <span>
           <button type='button'
           onClick={()=>changeCharacter()}>Selecionar outro herói</button>
         </span>
-      ):(
+        )}
+      </>):(
         <SearchForm setSelectedCharacter={setCharacter}/>
       )}
-      {character && (
+      {character && (<>
         <div className='w-[90%]'>
           <h3>{character.name}</h3>
           <img
@@ -104,8 +133,8 @@ export const AddCharacter = ({closeAddCharacter} : addCharacterProps) => {
             </span>
           </div>
         </div>
-      )}
-      <button type="submit">Adicionar herói</button>
+      <button type="submit">{character._id ? 'Salvar alterações' : 'Adicionar herói'}</button>
+      </>)}
     </form>
   )
 }

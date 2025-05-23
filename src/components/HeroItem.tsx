@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { TypeHero } from "../types/heroes";
 
 interface heroItemProps {
   hero: TypeHero;
   close: ()=> void;
+  openEditHero: (hero: TypeHero) => void;
 }
-export const HeroItem = ({ hero, close } : heroItemProps ) => {
+export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
+  const [modalConfirmDelete, setModalConfirmDelete] = useState(false)
   return (
     <div
     className="border flex w-[90%] md:w-[80%] 
@@ -34,6 +37,15 @@ export const HeroItem = ({ hero, close } : heroItemProps ) => {
           <ul className='list-none'>
             {hero.abilities.map((abilitie, index) => <li key={index}>{abilitie}</li>)}
           </ul>
+        </span>
+        <span className='hero-actions flex justify-center items-center flex-wrap gap-3'>
+          <button 
+          type='button'
+          className='bg-yellow-300 text-white py-1 px-9 rounded-[3rem]'
+          onClick={()=>{openEditHero(hero);close()}}>Editar</button>
+          <button 
+          type='button'
+          className='bg-red-500 text-white py-1 px-9 rounded-[3rem]'>Deletar</button>
         </span>
       </span>
     </div>
