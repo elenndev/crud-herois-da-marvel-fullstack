@@ -27,7 +27,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
 
   return (
     <div
-    className={`flex w-[90%] md:w-[80%] 
+    className={`flex w-[90%] md:w-[80%] rounded-[1em] 
     flex-col md:flex-row items-center justify-center relative ${!loadingDelete && 'custom-shadow bg-white'}`}>
     {loadingDelete ? (<Loader loadingText="Deletando herói, aguarde um momento..."/>):(<>
       <img 
@@ -43,7 +43,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
         Fechar
       </button>
 
-      <span className='infos w-full h-full bg-white text-black relative'>
+      <span className='infos w-full h-full mb-3 bg-white rounded-[1em]  text-black relative'>
         {modalConfirmDelete && (<ModalDeleteHero cancel={()=>setModalConfirmDelete(false)}
                                   confirm={handleDeleteHero}/>)}
         <h3 className="text-center">
@@ -52,8 +52,8 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
         <span className="hero-info flex flex-col items-center">
           <h4 className='text-center'>Origem do herói</h4>
           <p>{hero.origins}</p>
-          <h4 className='text-center'>Habilidades</h4>
-          <ul className='list-none'>
+          <h4 className='text-center mb-2'>Habilidades</h4>
+          <ul className='hero-item-abilitites list-none mb-3'>
             {hero.abilities.map((abilitie, index) => <li key={index}>{abilitie}</li>)}
           </ul>
         </span>

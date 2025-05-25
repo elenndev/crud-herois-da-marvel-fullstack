@@ -11,7 +11,7 @@ interface heroListProps{
 export const HeroList = ({ list, openHeroForm } : heroListProps) => {
   const [openHeroCard, setOpenHeroCard] = useState<TypeHero | null>(null)
   return (<>
-    <div className='w-full flex flex-col items-center'>
+    <div className='w-full flex flex-col gap-5 items-center'>
 
       <h2 className={`text-center ${openHeroCard && 'hidden'}`}>Lista de Heróis</h2>
       <div

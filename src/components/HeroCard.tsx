@@ -16,7 +16,7 @@ export const HeroCard = ({ hero, openCard } : heroCardProps) => {
 
   return(
     <div
-    className='w-[25%] flex flex-col cursor-pointer gap-2'
+    className='hero-card w-[90%] md:w-[25%] flex flex-col cursor-pointer gap-2'
     onClick={()=> openCard(hero)}>
       <span className='thumbnail'
       aria-label={`Thumbnail com imagem ilustrativa do personagem ${hero.name}`}

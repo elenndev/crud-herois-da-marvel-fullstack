@@ -46,6 +46,15 @@ h4{
   font-weight: 300;
 }
 
+.hero-card{
+  transition: box-shadow 0.25s ease-in-out;
+  box-shadow: 0 0 5px 3px rgba(163, 3, 3, 0.411);
+  background: rgba(0, 0, 0, 0.466);
+}
+.hero-card:hover{
+  box-shadow: 0 0 12px 5px rgba(163, 3, 3, 0.411);
+}
+
 .btn-blue, .btn-danger, .btn-yellow{
   color: white;
 }
@@ -70,6 +79,17 @@ h4{
   background: #e2b318;
 }
 
+.hero-item-abilitites {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  li{
+    padding: 0 8px;
+    border: 2px solid #2C6CCC;
+    border-radius: 2rem;
+  }
+}
+
 .hero-info > h4::after{
   height: 1px;
   width: 50%;
@@ -78,7 +98,7 @@ h4{
   left: 0;
   transform: translateX(50%);
   display: flex;
-  border-bottom: dashed black 4px;
+  border-bottom: dashed rgba(0, 0, 0, 0.507) 4px;
 }
 
 .input-search-character{
