@@ -12,16 +12,17 @@ export const HeroCard = ({ hero, openCard } : heroCardProps) => {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: '300px',
+    borderRadius: '15px',
   }
 
   return(
     <div
-    className='hero-card w-[90%] md:w-[25%] flex flex-col cursor-pointer gap-2'
+    className='hero-card w-[70%] md:w-[25%] flex flex-col cursor-pointer gap-2 rounded-[15px]'
     onClick={()=> openCard(hero)}>
       <span className='thumbnail'
       aria-label={`Thumbnail com imagem ilustrativa do personagem ${hero.name}`}
       style={thumbnailStyle}></span>
-      <p className="text-center">{hero.name}</p>
+      <p className="text-center py-2">{hero.name}</p>
     </div>
   )
 }

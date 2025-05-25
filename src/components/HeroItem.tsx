@@ -43,7 +43,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
         Fechar
       </button>
 
-      <span className='infos w-full h-full mb-3 bg-white rounded-[1em]  text-black relative'>
+      <span className='infos w-full h-full mb-3 rounded-[1em]  text-black relative'>
         {modalConfirmDelete && (<ModalDeleteHero cancel={()=>setModalConfirmDelete(false)}
                                   confirm={handleDeleteHero}/>)}
         <h3 className="text-center">
@@ -51,7 +51,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
         </h3>
         <span className="hero-info flex flex-col items-center">
           <h4 className='text-center'>Origem do herói</h4>
-          <p>{hero.origins}</p>
+          <p className="px-2">{hero.origins}</p>
           <h4 className='text-center mb-2'>Habilidades</h4>
           <ul className='hero-item-abilitites list-none mb-3'>
             {hero.abilities.map((abilitie, index) => <li key={index}>{abilitie}</li>)}

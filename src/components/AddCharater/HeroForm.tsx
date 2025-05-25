@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { SearchHero } from "./SearchHero"
-import { AddAbility } from "./AddAbility";
+import { SetAbility } from "./SetAbility";
 import { TypeHero } from "../../types/heroes";
 import { addNewHero, updateHero } from "../../utils/fetchAPI";
 import { useAppDispatch } from "../../store/storeHooks";
@@ -22,11 +22,18 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
   const [character, setCharacter] = useState<selectedHero|null>(hero ?? null)
   const [origin, setOrigin] = useState(hero?.origins ?? "")
   const [abilities, setAbilities] = useState<string[]>(hero?.abilities ?? [])
+  const [selectedAbility, setSelectedAbility] = useState<null | string>(null)
   const dispatch = useAppDispatch()
 
   function saveAbility(newAbility: string){
     const updatedAbilities = [...abilities, newAbility];
     setAbilities(updatedAbilities);
+  }
+
+  function removeAbility(ability: string){
+    const updatedList = abilities.filter(ab => ab != ability)
+    setAbilities(updatedList)
+    setSelectedAbility(null)
   }
 
   async function handleSubmit(e: React.FormEvent){
@@ -121,13 +128,23 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
             <span className='hero-abilities w-full flex flex-col items-center gap-1'>
               <h3>Habilidades</h3>
               <p>Informe as habilidades <strong>principais</strong> do herói</p>
-              {abilities.length > 0 && (
+              {abilities.length > 0 && (<>
+              <p className="text-center text-[#0000008f]">Clique em uma das habilidades para editar</p>
                 <ul className="list-none gap-2 flex flex-row flex-wrap">
-                  {abilities.map(ability => <li key={uuidv4()}>{ability}</li>)}
+                  {abilities.map(ability => 
+                    <li key={uuidv4()}
+                    onClick={()=>setSelectedAbility(ability)}
+                    className={`${selectedAbility == ability && 'selected'}`}>
+                      {ability}
+                    </li>)}
                 </ul>
-              )}
+              </>)}
               {abilities.length < 5 ? (
-                <AddAbility add={saveAbility}/>
+                <SetAbility 
+                editingAbility={selectedAbility}
+                add={saveAbility}
+                remove={removeAbility}
+                cancel={()=>setSelectedAbility(null)}/>
               )
             :
             (
