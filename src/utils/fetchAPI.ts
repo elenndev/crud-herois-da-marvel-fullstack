@@ -29,3 +29,9 @@ export const updateHero = async (hero: TypeHero) => {
   })
   return data
 }
+
+
+export const deleteHero = async (_id: string) => {
+  const { data } = await axios.delete<{message: string; deletedStatus: number}>(`${backendUrl}/heroes/${_id}`)
+  return data.deletedStatus
+}

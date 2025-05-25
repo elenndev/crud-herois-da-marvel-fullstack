@@ -16,14 +16,17 @@ const heroesSlice = createSlice({
       state.value = action.payload
     },
     updateExistingHero: (state, action: PayloadAction<TypeHero>) => {
-      state.value = state.value.map(hero=>{
+      state.value = state.value.map(hero=> {
         return hero._id == action.payload._id ? action.payload : hero
       })
+    },
+    removeHero: (state, action: PayloadAction<string>) => {
+      state.value = state.value.filter(hero => hero._id != action.payload)
     }
   }
 })
 
-export const { addHero, setHeroes, updateExistingHero } = heroesSlice.actions
+export const { addHero, setHeroes, updateExistingHero, removeHero } = heroesSlice.actions
 
 export const store = configureStore({
   reducer: heroesSlice.reducer

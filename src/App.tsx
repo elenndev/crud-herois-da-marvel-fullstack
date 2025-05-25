@@ -34,9 +34,9 @@ function App() {
     )
   }
 
-  function openEditHero(hero: TypeHero){
-    setEditHero(hero)
+  function openHeroForm(hero?: TypeHero){
     setOpenAddHero(true)
+    hero && setEditHero(hero)
   }
 
   function closeAddOrEditHero(){
@@ -55,7 +55,7 @@ function App() {
       className='w-screen min-h-screen py-5 relative'>
         <h1 
         className='text-center mt-10'>MARVEL</h1>
-        <section className='content w-full h-full'>
+        <section className='content w-full h-full flex flex-col items-center'>
           {openAddHero ? (<HeroForm 
                           hero={editHero} 
                           close={closeAddOrEditHero}/>) 
@@ -64,10 +64,9 @@ function App() {
             <>
             {heroesList.length > 0 ? (<>
               <HeroList 
-              openEditHero={openEditHero}
+              openHeroForm={openHeroForm}
               list={heroesList}/>
-              <button type='button'
-              onClick={()=>setOpenAddHero(true)}>Adicionar herói</button>
+              
             </>)
             :
             (

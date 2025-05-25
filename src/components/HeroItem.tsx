@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { TypeHero } from "../types/heroes";
+import { ModalDeleteHero } from "./ModalDeleteHero";
+import { deleteHero } from "../utils/fetchAPI";
+import { useAppDispatch } from "../store/storeHooks";
+import { removeHero } from "../store/heroesStore";
 
 interface heroItemProps {
   hero: TypeHero;
@@ -8,10 +12,20 @@ interface heroItemProps {
 }
 export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
   const [modalConfirmDelete, setModalConfirmDelete] = useState(false)
+  const dispatch = useAppDispatch()
+
+  async function handleDeleteHero(){
+    const req = await deleteHero(hero._id)
+    if(req == 200){
+      dispatch(removeHero(hero._id))
+      close()
+    }
+  }
+
   return (
     <div
-    className="border flex w-[90%] md:w-[80%] 
-    flex-col md:flex-row relative">
+    className="flex w-[90%] md:w-[80%] 
+    flex-col md:flex-row relative custom-shadow">
       <img 
       alt={`Imagem ilustrativa do personagem da marvel ${hero.name}`} 
       width='auto'
@@ -25,9 +39,10 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
         Fechar
       </button>
 
-      <span className='infos w-full bg-white text-black'>
-        <h3
-        className="text-center">
+      <span className='infos w-full bg-white text-black relative'>
+        {modalConfirmDelete && (<ModalDeleteHero cancel={()=>setModalConfirmDelete(false)}
+                                  confirm={handleDeleteHero}/>)}
+        <h3 className="text-center">
           {hero.name}
         </h3>
         <span className="hero-info flex flex-col items-center">
@@ -45,7 +60,10 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
           onClick={()=>{openEditHero(hero);close()}}>Editar</button>
           <button 
           type='button'
-          className='bg-red-500 text-white py-1 px-9 rounded-[3rem]'>Deletar</button>
+          className='btn-dangerv bg-red-500 text-white py-1 px-9 rounded-[3rem]'
+          onClick={()=>setModalConfirmDelete(true)}>
+            Deletar
+          </button>
         </span>
       </span>
     </div>

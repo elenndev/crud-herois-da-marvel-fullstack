@@ -80,15 +80,16 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
   }
 
   return (
-    <form className='flex flex-col bg-white text-black'
+    <form className='flex flex-col bg-white text-black relative
+    w-fit px-8 py-3 md:px-2 md:w-[60%] items-center custom-shadow'
     onSubmit={(e)=>handleSubmit(e)}>
       <button type="button"
       onClick={()=>close()}
       className="absolute top-0.5 right-0.5 rounded-[2rem] bg-[#000000a8]
       w-fit px-5 py-1 cursor-pointer">
-        Fechar
+        Sair
       </button>
-      <h2 className='text-center'>{character ? character._id ? `Editando: ${character.name}` :`Adicionando: ${character.name}` : 'Adicionar herói'}</h2>
+      <h3 className='text-center max-w-[60%]'>{character ? character._id ? `Editando: ${character.name}` :`Adicionando: ${character.name}` : 'Adicionar herói'}</h3>
       {character ? (<>
         {!character._id && (
         <span>
@@ -100,11 +101,11 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
         <SearchForm setSelectedCharacter={setCharacter}/>
       )}
       {character && (<>
-        <div className='w-[90%]'>
-          <h3>{character.name}</h3>
+        <div className='flex w-full flex-col items-center'>
           <img
-          className="object-cover max-w-[400px]"
+          className="h-[250px] object-cover"
           alt={`Imagem ilustrativa do personagem da marvel, ${character.name}`}
+          width='auto'
           src={character.thumbnail}></img>
           <div className='infos'>
             <span>

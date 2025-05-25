@@ -6,11 +6,11 @@ import { HeroItem } from "./HeroItem";
 
 interface heroListProps{
   list: TypeHero[];
-  openEditHero: (hero: TypeHero) => void;
+  openHeroForm: (hero?: TypeHero) => void;
 }
-export const HeroList = ({ list, openEditHero } : heroListProps) => {
+export const HeroList = ({ list, openHeroForm } : heroListProps) => {
   const [openHeroCard, setOpenHeroCard] = useState<TypeHero | null>(null)
-  return (
+  return (<>
     <div className='w-full flex flex-col items-center'>
 
       <h2 className={`text-center ${openHeroCard && 'hidden'}`}>Lista de Heróis</h2>
@@ -24,8 +24,13 @@ export const HeroList = ({ list, openEditHero } : heroListProps) => {
       </div>
       {openHeroCard && (<HeroItem
                         hero={openHeroCard} 
-                        openEditHero={openEditHero}
+                        openEditHero={openHeroForm}
                         close={()=>setOpenHeroCard(null)}/>)}
+      <button type='button'
+      onClick={()=>openHeroForm()}
+      className={`${openHeroCard && ('hidden')}`}>
+        Adicionar herói
+      </button>
     </div>
-  )
+  </>)
 }
