@@ -17,7 +17,7 @@ export const AddAbility = ({add}: addAbilityProps) => {
     setAbility("")
   }
   return (
-    <span>
+    <span className='flex flex-col w-full items-center gap-1'>
       <input type='text' placeholder='Nome da habilidade'
       value={ability}
       onChange={(e)=> {
@@ -26,7 +26,12 @@ export const AddAbility = ({add}: addAbilityProps) => {
           setError(false)
         }}}/>
       {error && (<p>Tamanho mínimo de caracteres: 6</p>)}
-      <button type='button' onClick={()=>handleAdd()}>Adicionar</button>
+      <button 
+      type='button' 
+      onClick={()=>handleAdd()}
+      className='btn-yellow py-0.5 px-5 rounded-[3rem]'>
+        Adicionar Habilidade
+      </button>
     </span>
   )
 }

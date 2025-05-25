@@ -18,6 +18,7 @@ function App() {
   const dispatch = useAppDispatch()
   const [openAddHero, setOpenAddHero] = useState(false)
   const [editHero, setEditHero] = useState<undefined | TypeHero>(undefined)
+  const [showList, setShowList] = useState(false)
 
   useEffect(()=>{
     if(data){
@@ -52,36 +53,47 @@ function App() {
   return (
     <>
       <main
-      className='w-screen min-h-screen py-5 relative'>
-        <h1 
-        className='text-center mt-10'>MARVEL</h1>
-        <section className='content w-full h-full flex flex-col items-center'>
-          {openAddHero ? (<HeroForm 
-                          hero={editHero} 
-                          close={closeAddOrEditHero}/>) 
-          : 
-          (
-            <>
-            {heroesList.length > 0 ? (<>
-              <HeroList 
-              openHeroForm={openHeroForm}
-              list={heroesList}/>
-              
-            </>)
-            :
+      className='w-screen min-h-screen relative'>
+        {showList ? (<>
+          <h1 className='text-center mt-10'>MARVEL</h1>
+          <section className='content w-full h-full flex flex-col items-center py-5'>
+            {openAddHero ? (
+              <HeroForm 
+              hero={editHero} 
+              close={closeAddOrEditHero}/>) 
+            : 
             (
-              <span
-              className='flex flex-col'>
-                <p>Lista vazia, comece adicionando um herói</p>
-                <button type='button'
-                className='w-fit py-0.5 px-7 bg-red-950 text-white'
-                onClick={()=>setOpenAddHero(true)}>
-                  Adicionar herói
-                </button>
-              </span>
-            )}
-            </>)}
-        </section>
+              <>
+              {heroesList.length > 0 ? (<>
+                <HeroList 
+                openHeroForm={openHeroForm}
+                list={heroesList}/>
+                
+              </>)
+              :
+              (
+                <span
+                className='flex flex-col items-center'>
+                  <h2 className='font-light'>Lista vazia, comece adicionando um herói</h2>
+                  <button type='button'
+                  className='w-fit py-0.5 px-10 bg-[#5b0505af] text-white text-[1.5em] rounded-[1.5rem]'
+                  onClick={()=>setOpenAddHero(true)}>
+                    Adicionar herói
+                  </button>
+                </span>
+              )}
+              </>)}
+          </section>
+        </>):(
+          <span className='w-full h-screen flex flex-col items-center justify-center'>
+            <h1 className='main-title'>MARVEL</h1>
+            <button type='button'
+              className='open-hero-list w-fit px-12 bg-[#5b0505af] text-white rounded-[2rem]'
+              onClick={()=>setShowList(true)}>
+                <p>Conferir Lista de heróis</p>
+            </button>
+          </span>
+        )}
       </main>
     </>
   )

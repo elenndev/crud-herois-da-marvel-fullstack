@@ -28,7 +28,7 @@ export const HeroList = ({ list, openHeroForm } : heroListProps) => {
                         close={()=>setOpenHeroCard(null)}/>)}
       <button type='button'
       onClick={()=>openHeroForm()}
-      className={`${openHeroCard && ('hidden')}`}>
+      className={`${openHeroCard && ('hidden')} btn-yellow py-1 px-3 rounded-[3rem]`}>
         Adicionar herói
       </button>
     </div>

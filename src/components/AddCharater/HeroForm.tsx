@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { SearchForm } from "./SearchForm"
+import { SearchHero } from "./SearchHero"
 import { AddAbility } from "./AddAbility";
 import { TypeHero } from "../../types/heroes";
 import { addNewHero, updateHero } from "../../utils/fetchAPI";
@@ -85,20 +85,21 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
     onSubmit={(e)=>handleSubmit(e)}>
       <button type="button"
       onClick={()=>close()}
-      className="absolute top-0.5 right-0.5 rounded-[2rem] bg-[#000000a8]
+      className="absolute top-1 right-1 rounded-[2rem] btn-danger 
       w-fit px-5 py-1 cursor-pointer">
-        Sair
+        Cancelar
       </button>
-      <h3 className='text-center max-w-[60%]'>{character ? character._id ? `Editando: ${character.name}` :`Adicionando: ${character.name}` : 'Adicionar herói'}</h3>
+      <h2 className='text-center max-w-[60%]'>{character ? character._id ? `Editando: ${character.name}` :`Adicionando: ${character.name}` : 'Adicionar herói'}</h2>
       {character ? (<>
         {!character._id && (
         <span>
           <button type='button'
+          className='btn-blue py-1 px-5 rounded-[3rem] mb-2'
           onClick={()=>changeCharacter()}>Selecionar outro herói</button>
         </span>
         )}
       </>):(
-        <SearchForm setSelectedCharacter={setCharacter}/>
+        <SearchHero setSelectedCharacter={setCharacter}/>
       )}
       {character && (<>
         <div className='flex w-full flex-col items-center'>
@@ -108,20 +109,21 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
           width='auto'
           src={character.thumbnail}></img>
           <div className='infos'>
-            <span>
-              <p>Adicione a história de origem</p>
-              <textarea 
+            <span className='hero-origin w-full flex flex-col items-center'>
+              <h3>Adicione a história de origem</h3>
+              <textarea
               value={origin}
               onChange={(e)=>setOrigin(e.target.value)}
               required={true}
-              minLength={15}/>
+              minLength={15}
+              placeholder={"Historia de origem do herói"}/>
             </span>
-            <span>
-              <p>Habilidades</p>
-              <p>Descreva as habilidades <strong>principais</strong> do herói</p>
+            <span className='hero-abilities w-full flex flex-col items-center gap-1'>
+              <h3>Habilidades</h3>
+              <p>Informe as habilidades <strong>principais</strong> do herói</p>
               {abilities.length > 0 && (
-                <ul className="list-none">
-                  {abilities.map(ability => <p key={uuidv4()}>{ability}</p>)}
+                <ul className="list-none gap-2 flex flex-row flex-wrap">
+                  {abilities.map(ability => <li key={uuidv4()}>{ability}</li>)}
                 </ul>
               )}
               {abilities.length < 5 ? (
@@ -134,7 +136,11 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
             </span>
           </div>
         </div>
-      <button type="submit">{character._id ? 'Salvar alterações' : 'Adicionar herói'}</button>
+      <button 
+      type="submit"
+      className="btn-blue mt-3 py-0.5 px-5 rounded-[3rem] text-[1.5em]">
+        {character._id ? 'Salvar alterações' : 'Adicionar herói'}
+      </button>
       </>)}
     </form>
   )

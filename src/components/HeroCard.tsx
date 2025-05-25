@@ -16,12 +16,12 @@ export const HeroCard = ({ hero, openCard } : heroCardProps) => {
 
   return(
     <div
-    className='w-[25%] flex flex-col cursor-pointer'
+    className='w-[25%] flex flex-col cursor-pointer gap-2'
     onClick={()=> openCard(hero)}>
       <span className='thumbnail'
       aria-label={`Thumbnail com imagem ilustrativa do personagem ${hero.name}`}
       style={thumbnailStyle}></span>
-      <p>{hero.name}</p>
+      <p className="text-center">{hero.name}</p>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { ModalDeleteHero } from "./ModalDeleteHero";
 import { deleteHero } from "../utils/fetchAPI";
 import { useAppDispatch } from "../store/storeHooks";
 import { removeHero } from "../store/heroesStore";
+import { Loader } from "./Loader";
 
 interface heroItemProps {
   hero: TypeHero;
@@ -12,9 +13,11 @@ interface heroItemProps {
 }
 export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
   const [modalConfirmDelete, setModalConfirmDelete] = useState(false)
+  const [ loadingDelete, setLoadingDelete ] = useState(false)
   const dispatch = useAppDispatch()
 
   async function handleDeleteHero(){
+    setLoadingDelete(true)
     const req = await deleteHero(hero._id)
     if(req == 200){
       dispatch(removeHero(hero._id))
@@ -24,12 +27,13 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
 
   return (
     <div
-    className="flex w-[90%] md:w-[80%] 
-    flex-col md:flex-row relative custom-shadow">
+    className={`flex w-[90%] md:w-[80%] 
+    flex-col md:flex-row items-center justify-center relative ${!loadingDelete && 'custom-shadow bg-white'}`}>
+    {loadingDelete ? (<Loader loadingText="Deletando herói, aguarde um momento..."/>):(<>
       <img 
       alt={`Imagem ilustrativa do personagem da marvel ${hero.name}`} 
       width='auto'
-      className="h-[250px] md:min-h-full md:h-[400px] md:w-[30%] object-contain md:object-cover"
+      className="h-[250px] w-full md:min-h-full md:h-[400px] md:w-[30%] object-contain md:object-cover"
       src={hero.thumbnail}/>
 
       <button type="button"
@@ -39,7 +43,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
         Fechar
       </button>
 
-      <span className='infos w-full bg-white text-black relative'>
+      <span className='infos w-full h-full bg-white text-black relative'>
         {modalConfirmDelete && (<ModalDeleteHero cancel={()=>setModalConfirmDelete(false)}
                                   confirm={handleDeleteHero}/>)}
         <h3 className="text-center">
@@ -66,6 +70,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
           </button>
         </span>
       </span>
+    </>)}
     </div>
   )
 }

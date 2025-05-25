@@ -19,7 +19,7 @@ interface apiResults {
 interface searchFormProps {
   setSelectedCharacter: (hero: selectedHero) => void;
 }
-export const SearchForm = ({ setSelectedCharacter } : searchFormProps) =>{
+export const SearchHero = ({ setSelectedCharacter } : searchFormProps) =>{
   const [searchCharacter, setSearchCharacter] = useState("")
   const [results, setResults] = useState<selectedHero[]>([])
 
@@ -56,18 +56,28 @@ export const SearchForm = ({ setSelectedCharacter } : searchFormProps) =>{
   }
 
   return (
-    <span>
-      <h2>Pesquisar personagem</h2>
-      <p>Dica: Pesquise pelo nom edo personagem em inglês</p>
-      <input type="text" value={searchCharacter} onChange={(e)=>setSearchCharacter(e.target.value)}
-      className='bg-white'/>
-      <ul className="results list-none">
+    <span className="flex flex-col gap-1">
+      <h3 className='text-center'>Pesquisar heróis</h3>
+      <p>Dica: Pesquise pelo nome do herói em inglês</p>
+      <input type="text" 
+      value={searchCharacter} 
+      onChange={(e)=>setSearchCharacter(e.target.value)}
+      placeholder='Nome do herói'
+      className='input-search-character'/>
+      <ul className="search-hero-results list-none">
+        <li>
+          <p>Resultados</p>
+        </li>
         {results.length == 0 ? 
         (
-          <li><p>Digite o nome de um personagem para pesquisar</p></li>
+          <li className='text-[#0000008f]'><p>Digite o nome de um herói para pesquisar</p></li>
         )
         :
-        (results.map(ch => <li key={uuidv4()} onClick={()=> setSelectedCharacter(ch)}>{ch.name}</li>))}
+        (results.map(ch => 
+          <li key={uuidv4()} 
+          onClick={()=> setSelectedCharacter(ch)}>
+            {ch.name}
+          </li>))}
       </ul>
     </span>
   )
