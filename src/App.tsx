@@ -88,9 +88,9 @@ function App() {
           <span className='w-full h-screen flex flex-col items-center justify-center'>
             <h1 className='main-title'>MARVEL</h1>
             <button type='button'
-              className='open-hero-list w-fit px-12 bg-[#5b0505af] text-white rounded-[2rem]'
+              className='open-hero-list w-fit px-12 bg-[#5b0505af] text-white rounded-[2rem] relative'
               onClick={()=>setShowList(true)}>
-                <p>Conferir Lista de heróis</p>
+                <p className=''>Conferir Lista de heróis</p>
             </button>
           </span>
         )}
