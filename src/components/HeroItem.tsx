@@ -30,9 +30,11 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
 
   return (
     <div
-    className={`flex w-[90%] md:w-[80%] rounded-[1em] 
+    className={`flex w-[90%] py-1 md:py-0 md:w-[80%] rounded-[1em] 
     flex-col md:flex-row items-center justify-center relative ${!loadingDelete && 'custom-shadow bg-white'}`}>
-    {loadingDelete ? (<Loader loadingText="Deletando herói, aguarde um momento..."/>):(<>
+    {loadingDelete ? (
+      <Loader loadingText="Deletando herói, aguarde um momento..."/>
+      ) : (<>
       <img 
       alt={`Imagem ilustrativa do personagem da marvel ${hero.name}`} 
       width='auto'
@@ -63,11 +65,11 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
         <span className='hero-actions flex justify-center items-center flex-wrap gap-3'>
           <button 
           type='button'
-          className='bg-yellow-300 text-white py-1 px-9 rounded-[3rem]'
+          className='btn-yellow text-white py-1 px-9 rounded-[3rem]'
           onClick={()=>{openEditHero(hero);close()}}>Editar</button>
           <button 
           type='button'
-          className='btn-dangerv bg-red-500 text-white py-1 px-9 rounded-[3rem]'
+          className='btn-danger text-white py-1 px-9 rounded-[3rem]'
           onClick={()=>setModalConfirmDelete(true)}>
             Deletar
           </button>

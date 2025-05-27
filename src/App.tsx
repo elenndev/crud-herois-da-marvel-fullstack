@@ -5,7 +5,7 @@ import { getHeroes } from './utils/fetchAPI';
 import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch  } from './store/storeHooks';
 import { setHeroes } from './store/heroesStore';
-import { HeroForm } from './components/AddCharater/HeroForm';
+import { HeroForm } from './components/AddHero/HeroForm';
 import { Loader } from './components/Loader';
 import { HeroList } from './components/HeroList';
 import { TypeHero } from './types/heroes';
@@ -54,7 +54,7 @@ function App() {
   return (
     <>
       <main
-      className='w-screen min-h-screen relative'>
+      className='w-screen min-h-screen relative flex flex-col items-center'>
         <ToastContainer />
         {showList ? (<>
           <h1 className='text-center mt-10'>MARVEL</h1>
@@ -64,27 +64,10 @@ function App() {
               hero={editHero} 
               close={closeAddOrEditHero}/>) 
             : 
-            (
-              <>
-              {heroesList.length > 0 ? (<>
-                <HeroList 
-                openHeroForm={openHeroForm}
-                list={heroesList}/>
-                
-              </>)
-              :
-              (
-                <span
-                className='flex flex-col items-center'>
-                  <h2 className='font-light'>Lista vazia, comece adicionando um herói</h2>
-                  <button type='button'
-                  className='w-fit py-0.5 px-10 bg-[#5b0505af] text-white text-[1.5em] rounded-[1.5rem]'
-                  onClick={()=>setOpenAddHero(true)}>
-                    Adicionar herói
-                  </button>
-                </span>
-              )}
-              </>)}
+            (<HeroList 
+              openHeroForm={openHeroForm}
+              list={heroesList}
+              openAddHero={()=> setOpenAddHero(true)}/>)}
           </section>
         </>):(
           <span className='w-full h-screen flex flex-col items-center justify-center'>

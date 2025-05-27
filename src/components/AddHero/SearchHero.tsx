@@ -58,11 +58,11 @@ export const SearchHero = ({ setSelectedCharacter } : searchFormProps) =>{
   return (
     <span className="flex flex-col gap-1">
       <h3 className='text-center'>Pesquisar heróis</h3>
-      <p>Dica: Pesquise pelo nome do herói em inglês</p>
+      <p>Dica: Pesquise pelo nome do herói em inglês, <span className="text-[#0000008f] block">Exemplo: Spider-Man</span></p>
       <input type="text" 
       value={searchCharacter} 
       onChange={(e)=>setSearchCharacter(e.target.value)}
-      placeholder='Nome do herói'
+      placeholder='Pesquisar nome do herói'
       className='input-search-character'/>
       <ul className="search-hero-results list-none">
         <li>
