@@ -5,6 +5,7 @@ import { deleteHero } from "../utils/fetchAPI";
 import { useAppDispatch } from "../store/storeHooks";
 import { removeHero } from "../store/heroesStore";
 import { Loader } from "./Loader";
+import { toast } from "react-toastify";
 
 interface heroItemProps {
   hero: TypeHero;
@@ -22,6 +23,8 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
     if(req == 200){
       dispatch(removeHero(hero._id))
       close()
+    } else{
+      toast.error("Erro ao tentar deletar o herói")
     }
   }
 

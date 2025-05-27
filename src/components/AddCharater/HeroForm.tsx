@@ -6,6 +6,7 @@ import { addNewHero, updateHero } from "../../utils/fetchAPI";
 import { useAppDispatch } from "../../store/storeHooks";
 import { addHero, updateExistingHero } from "../../store/heroesStore";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 
 export interface selectedHero {
   marvelId: string;
@@ -23,6 +24,8 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
   const [origin, setOrigin] = useState(hero?.origins ?? "")
   const [abilities, setAbilities] = useState<string[]>(hero?.abilities ?? [])
   const [selectedAbility, setSelectedAbility] = useState<null | string>(null)
+  const [error, setError] = useState(false)
+
   const dispatch = useAppDispatch()
 
   function saveAbility(newAbility: string){
@@ -39,6 +42,11 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
   async function handleSubmit(e: React.FormEvent){
     e.preventDefault()
     if(!character){ return }
+
+    if(abilities.length < 2){
+      setError(true)
+      return
+    }
     const isEditing = character._id ? true : false
 
     const newHero: Omit<TypeHero, '_id'> = {
@@ -76,7 +84,7 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
         }
       }
     }catch(error){
-      console.log(error)
+      toast.error('Erro ao tentar salvar o herói')
     }
   }
 
@@ -142,9 +150,11 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
               {abilities.length < 5 ? (
                 <SetAbility 
                 editingAbility={selectedAbility}
+                error={error}
                 add={saveAbility}
                 remove={removeAbility}
-                cancel={()=>setSelectedAbility(null)}/>
+                cancel={()=>setSelectedAbility(null)}
+                cleanError={()=> setError(false)}/>
               )
             :
             (

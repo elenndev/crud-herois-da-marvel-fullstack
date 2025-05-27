@@ -1,24 +1,23 @@
 import { useState } from "react";
 
 interface addAbilityProps {
+  error: boolean;
   editingAbility: null | string;
   add: (newAbility: string) => void;
   remove: (ability: string) => void;
   cancel: () => void;
+  cleanError: () => void;
 }
-export const SetAbility = ({ editingAbility, add, remove, cancel }: addAbilityProps) => {
+export const SetAbility = ({ editingAbility, error, add, remove, cancel, cleanError }: addAbilityProps) => {
   const [ability, setAbility] = useState("")
-  const [error, setError] = useState(false)
   
   function handleAdd(){
-    if(ability.length <= 5){
-      setError(true)
-      return
+    if(ability.length >= 5){
+      add(ability)
+      setAbility("")
     }
-
-    add(ability)
-    setAbility("")
   }
+
   return (
     <span className='flex flex-col w-full items-center gap-1'>
       {editingAbility ? (
@@ -41,12 +40,11 @@ export const SetAbility = ({ editingAbility, add, remove, cancel }: addAbilityPr
       (<>
         <input type='text' placeholder='Nome da habilidade'
         value={ability}
+        minLength={5}
         onChange={(e)=> {
           setAbility(e.target.value)
-          if(error){
-            setError(false)
-          }}}/>
-        {error && (<p>Tamanho mínimo de caracteres: 6</p>)}
+          cleanError()}}/>
+        {error && (<p className="border-danger px-2 rounded-[3em]">Informe ao menos 2 habilidades do herói</p>)}
         <button 
         type='button' 
         onClick={()=>handleAdd()}

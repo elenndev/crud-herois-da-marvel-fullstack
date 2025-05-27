@@ -9,6 +9,7 @@ import { HeroForm } from './components/AddCharater/HeroForm';
 import { Loader } from './components/Loader';
 import { HeroList } from './components/HeroList';
 import { TypeHero } from './types/heroes';
+import { ToastContainer, toast } from 'react-toastify';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -45,15 +46,16 @@ function App() {
     setOpenAddHero(false)
   }
 
-  // if(error){
-  //   return <p>Is error</p>
-  // }
+  if(error){
+    toast.error("Erro ao tentar buscar dados no servidor")
+  }
 
 
   return (
     <>
       <main
       className='w-screen min-h-screen relative'>
+        <ToastContainer />
         {showList ? (<>
           <h1 className='text-center mt-10'>MARVEL</h1>
           <section className='content w-full h-full flex flex-col items-center py-5'>
