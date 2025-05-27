@@ -20,16 +20,23 @@ button{
 
 h1.main-title{
   font-size: 8em;
-  font-weight: 600;
-  animation: title 0.5s ease-in-out
+  font-weight: 700;
+  height: fit-content;
+  animation: title 1s ease-in-out;
+  background: #ee171f;
+  padding: 0 25px;
+  margin-bottom: 20px;
+  letter-spacing: -5px;
+  box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.377);
 }
 
 @keyframes title{
   0%{
-    opacity: 0.5;
+    opacity: 0;
   }
   100%{
     opacity: 1;
+    box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.377);
   }
 }
 
@@ -76,7 +83,7 @@ h4{
   background: rgba(0, 0, 0, 0.466);
 }
 .hero-card:hover{
-  box-shadow: 0 0 12px 5px rgba(163, 3, 3, 0.411);
+  box-shadow: 0 0 14px 5px rgba(211, 3, 3, 0.411);
 }
 
 .btn-blue, .btn-danger, .btn-yellow{

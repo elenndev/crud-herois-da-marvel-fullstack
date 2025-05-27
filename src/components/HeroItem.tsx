@@ -6,6 +6,7 @@ import { useAppDispatch } from "../store/storeHooks";
 import { removeHero } from "../store/heroesStore";
 import { Loader } from "./Loader";
 import { toast } from "react-toastify";
+import { HeroComics } from "./HeroComics";
 
 interface heroItemProps {
   hero: TypeHero;
@@ -30,7 +31,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
 
   return (
     <div
-    className={`flex w-[90%] py-1 md:py-0 md:w-[80%] rounded-[1em] 
+    className={`flex w-[90%] h-[600px] min-h-fit py-1 md:py-0 md:w-[80%] rounded-[1em] 
     flex-col md:flex-row items-center justify-center relative ${!loadingDelete && 'custom-shadow bg-white'}`}>
     {loadingDelete ? (
       <Loader loadingText="Deletando herói, aguarde um momento..."/>
@@ -38,7 +39,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
       <img 
       alt={`Imagem ilustrativa do personagem da marvel ${hero.name}`} 
       width='auto'
-      className="h-[250px] w-full md:min-h-full md:h-[400px] md:w-[30%] object-contain md:object-cover"
+      className="h-[250px] w-full md:h-full md:min-h-[400px] md:w-[35%] object-contain md:object-cover"
       src={hero.thumbnail}/>
 
       <button type="button"
@@ -48,7 +49,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
         Fechar
       </button>
 
-      <span className='infos w-full h-full mb-3 rounded-[1em]  text-black relative'>
+      <span className='infos flex- flex-col md:py-3 w-full h-full mb-3 rounded-[1em]  text-black relative'>
         {modalConfirmDelete && (<ModalDeleteHero cancel={()=>setModalConfirmDelete(false)}
                                   confirm={handleDeleteHero}/>)}
         <h3 className="text-center">
@@ -61,6 +62,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
           <ul className='hero-item-abilitites list-none mb-3'>
             {hero.abilities.map((abilitie, index) => <li key={index}>{abilitie}</li>)}
           </ul>
+        <HeroComics heroId={hero.marvelId}/>
         </span>
         <span className='hero-actions flex justify-center items-center flex-wrap gap-3'>
           <button 

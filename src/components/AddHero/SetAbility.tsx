@@ -41,6 +41,7 @@ export const SetAbility = ({ editingAbility, error, add, remove, cancel, cleanEr
         <input type='text' placeholder='Nome da habilidade'
         value={ability}
         minLength={5}
+        maxLength={50}
         onChange={(e)=> {
           setAbility(e.target.value)
           cleanError()}}/>
