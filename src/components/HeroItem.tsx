@@ -44,7 +44,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
 
       <button type="button"
       onClick={()=>close()}
-      className="absolute top-0.5 right-0.5 rounded-[2rem] bg-[#000000a8]
+      className="absolute z-2 top-0.5 right-0.5 rounded-[2rem] bg-[#000000a8]
       w-fit px-5 py-1 cursor-pointer">
         Fechar
       </button>
