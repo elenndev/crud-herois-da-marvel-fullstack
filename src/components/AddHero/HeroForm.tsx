@@ -126,11 +126,16 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
           <div className='infos'>
             <span className='hero-origin w-full flex flex-col items-center'>
               <h3>Adicione a história de origem</h3>
+              <p className="text-[#0000009f] text-[0.8 em]">Mínimo de caracteres: 150 - Máximo: 600</p>
+              <p className="text-[#0000009f] text-[0.8 em]">
+                {origin !="" && `Quantidade atual: ${origin.length} caracteres`}
+                </p>
               <textarea
               value={origin}
               onChange={(e)=>setOrigin(e.target.value)}
               required={true}
-              minLength={15}
+              minLength={150}
+              maxLength={600}
               placeholder={"Historia de origem do herói"}/>
             </span>
             <span className='hero-abilities w-full flex flex-col items-center gap-1'>

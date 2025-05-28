@@ -12,7 +12,7 @@ export const SetAbility = ({ editingAbility, error, add, remove, cancel, cleanEr
   const [ability, setAbility] = useState("")
   
   function handleAdd(){
-    if(ability.length >= 5){
+    if(ability.length >= 5 && ability.length <= 50){
       add(ability)
       setAbility("")
     }
@@ -38,6 +38,9 @@ export const SetAbility = ({ editingAbility, error, add, remove, cancel, cleanEr
         </span>)
       :
       (<>
+        <p className="text-[#0000009f] text-[0.8 em]">Mínimo caracteres: 5 - Máximo: 50{
+          ability != "" && ability.length < 5 && `, faltam ${(ability.length - 5) * -1} caracteres` }
+        </p>
         <input type='text' placeholder='Nome da habilidade'
         value={ability}
         minLength={5}
