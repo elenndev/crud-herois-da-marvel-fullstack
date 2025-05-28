@@ -55,7 +55,7 @@ export const HeroComics = ({ heroId } : { heroId: string}) => {
     {loading ? (<>
       Buscando Hqs...</>
     ) : (
-    <span className="flex flex-col md:flex-row gap-3 flex-wrap w-full justify-center items-center">
+    <span className="flex flex-col md:flex-row gap-3 flex-wrap w-[95%] justify-center items-center">
       {comicList.map(comic => (
         <div key={uuidv4()} className="flex flex-col items-center">
           <img

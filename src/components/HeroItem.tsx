@@ -57,7 +57,7 @@ export const HeroItem = ({ hero, close, openEditHero } : heroItemProps ) => {
         </h3>
         <span className="hero-info flex flex-col items-center">
           <h4 className='text-center'>Origem do herói</h4>
-          <p className="px-2">{hero.origins}</p>
+          <p className="hero-origin max-w-[90%]">{hero.origins}</p>
           <h4 className='text-center mb-2'>Habilidades</h4>
           <ul className='hero-item-abilitites list-none mb-3'>
             {hero.abilities.map((abilitie, index) => <li key={index}>{abilitie}</li>)}
