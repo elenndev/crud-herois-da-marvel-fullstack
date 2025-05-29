@@ -12,7 +12,7 @@ interface heroListProps{
 export const HeroList = ({ list, openHeroForm, openAddHero } : heroListProps) => {
   const [openHeroCard, setOpenHeroCard] = useState<TypeHero | null>(null)
   return (<>
-    <div className='w-full flex flex-col gap-5 items-center'>
+    <div className='hero-list w-full flex flex-col gap-5 items-center'>
       {list.length > 0 ? (<>
         <h2 className={`text-center ${openHeroCard && 'hidden'}`}>Lista de Heróis</h2>
         <div
@@ -34,7 +34,7 @@ export const HeroList = ({ list, openHeroForm, openAddHero } : heroListProps) =>
           Adicionar herói
         </button>
       </>) : (<>
-        <h2 className='font-light text-center'>Lista vazia, comece adicionando um herói</h2>
+        <h2 className='no-items font-light text-center'>Lista vazia, comece adicionando um herói</h2>
         <button type='button'
         className='w-fit py-0.5 px-10 bg-[#5b0505af] text-white text-[1.5em] rounded-[1.5rem]'
         onClick={openAddHero}>

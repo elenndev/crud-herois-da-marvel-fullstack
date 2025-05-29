@@ -45,6 +45,7 @@ h1{
   font-size: 4em;
 }
 
+
 h2{
   font-size: 3em;
 }
@@ -63,6 +64,32 @@ h4{
   font-size: 2.5em;
   font-weight: 300;
   animation: shadow 2s infinite ease-in-out;
+}
+
+@media (max-width: 767px) {
+  h1.main-title{ 
+    font-size: 5em;
+  }
+  .open-hero-list{
+    max-width: 90vw;
+    font-size: 2em;
+    border-radius: 5em;
+  }
+  .form-title{
+    margin-top: 20px;
+  }
+  .hero-list > h2.no-items{
+    font-size: 2.5em;
+    max-width: 90vw;
+  }
+}
+
+button{
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.164);
+}
+
+button.close-heroItem{
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.363);
 }
 
 @keyframes shadow {

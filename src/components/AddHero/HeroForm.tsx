@@ -96,7 +96,7 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
 
   return (
     <form className='flex flex-col bg-white text-black relative rounded-[1em] 
-    w-[97%] px-8 py-3 md:px-2 md:w-[60%] items-center custom-shadow'
+    w-[97%] sm:py-2 px-8 py-3 md:px-2 md:w-[60%] items-center custom-shadow'
     onSubmit={(e)=>handleSubmit(e)}>
       <button type="button"
       onClick={()=>close()}
@@ -104,7 +104,7 @@ export const HeroForm = ({hero, close} : heroFormProps) => {
       w-fit px-5 py-1 cursor-pointer text-white">
         Cancelar
       </button>
-      <h2 className='text-center w-full md:max-w-[60%]'>{character ? character._id ? `Editando: ${character.name}` :`Adicionando: ${character.name}` : 'Adicionar herói'}</h2>
+      <h2 className='form-title text-center w-full md:max-w-[60%]'>{character ? character._id ? `Editando: ${character.name}` :`Adicionando: ${character.name}` : 'Adicionar herói'}</h2>
       {character ? (<>
         {!character._id && (
         <span>
