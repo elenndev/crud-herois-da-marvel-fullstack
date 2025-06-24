@@ -40,19 +40,20 @@ Desafio realizado como parte do processo seletivo do Frontend Fusion.
   - **Método:** DELETE
   - **Descrição:** Exclui um herói existente com base no ID.
 
-## Requisitos Técnicos
+## TechStack
 
 **Frontend:**
-- Utilizar React com TypeScript.
-- Utilizar Axios ou Fetch para fazer requisições HTTP ao backend.
-- Gerenciar o estado da aplicação utilizando o contexto do React ou uma biblioteca de gerenciamento de estado como Redux ou Zustand.
-- Uso do SWR será considerado uma habilidade valorizada.
-- É opcional utilizar a API de personagens da Marvel.
+- React
+- TypeScript
+- Axios
+- Redux
+- SWR
+- Marvel API.
 
 **Backend:**
-- Utilizar NestJS com TypeScript.
-- Utilizar um banco de dados relacional ou não relacional (ex. MongoDB, PostgreSQL, MySQL).
-- Implementar as operações CRUD (Create, Read, Update, Delete) para gerenciar os heróis.
+- NestJS
+- TypeScript
+- MongoDB
 
 # Deploy
 A aplicação pode ser acessada [aqui](https://crud-herois-da-marvel-fullstack-lovat.vercel.app).
